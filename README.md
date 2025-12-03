@@ -89,22 +89,22 @@ For users less familiar with Docker, the repository root exposes `run.sh`:
 
 Treat `run.sh` as a push-button option: place your video on disk, run the script, and inspect the generated subfolder under `outputs/` when it completes.
 
-### 2.3 Docker Hub Image *(placeholder)*
+### 2.3 Docker Hub Image
 
-Pull the forthcoming pre-built image once it is published:
+Pull the published image from Docker Hub:
 
 ```bash
-docker pull docker.io/REPO/IMAGE:TAG  # TODO: publish official image name
+docker pull pdxmusic/dpvo-runtime:latest
 ```
 
-After pulling, reuse `run.sh` by exporting `DPVO_IMAGE_NAME=docker.io/REPO/IMAGE:TAG`, or invoke `docker run` manually.
+Tag aliases are available; for example `docker pull pdxmusic/dpvo-runtime:v0.1.0`. After pulling, reuse `run.sh` by exporting `DPVO_IMAGE_NAME=pdxmusic/dpvo-runtime:latest`, or invoke `docker run` manually.
 
-### 2.4 Remote Usage on vast.ai *(placeholder)*
+### 2.4 Remote Usage on vast.ai
 
 1. Provision a vast.ai instance with NVIDIA GPUs and Docker runtime enabled.
-2. Pull the image once available:
+2. Pull the image onto the host:
    ```bash
-   docker pull docker.io/REPO/IMAGE:TAG  # TODO: confirm tag after publication
+   docker pull pdxmusic/dpvo-runtime:latest
    ```
 3. Upload or mount your video on the remote host.
 4. Launch DPVO inside the container:
@@ -112,7 +112,7 @@ After pulling, reuse `run.sh` by exporting `DPVO_IMAGE_NAME=docker.io/REPO/IMAGE
    docker run --rm --gpus all --ipc=host \
      -v /abs/path/to/video.mp4:/data/input.mp4:ro \
      -v /abs/path/to/output_dir:/app/outputs \
-     docker.io/REPO/IMAGE:TAG \
+   pdxmusic/dpvo-runtime:latest \
    python run.py --imagedir=/data/input.mp4 --calib=calib/tesla.txt --stride=5 \
        --plot --save_camera_poses --save_motion --save_trajectory
    ```
